@@ -1,0 +1,31 @@
+using UnityEngine;
+public class SharkMovement : MonoBehaviour
+{
+    public Transform pointA;
+    public Transform pointB;
+    public float speed = 2f;
+
+    private Vector3 target;
+
+    void Start()
+
+    {
+        target = pointB.position;
+    }
+
+    void Update()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
+        if (Vector3.Distance(transform.position, target) < 0.1f)
+        {
+            // Flip direction
+            target = (target == pointA.position) ? pointB.position : pointA.position;
+
+            // Flip sprite (if using sprite renderer)
+            Vector3 scale = transform.localScale;
+            scale.x *= -1;
+            transform.localScale = scale;
+        }
+    }
+}
