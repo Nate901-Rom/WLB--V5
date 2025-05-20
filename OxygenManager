@@ -1,0 +1,44 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class OxygenManager : MonoBehaviour
+{
+    public Image oxygenBar;
+    public float maxOxygen = 100f;
+    public float currentOxygen;
+
+    void Start()
+    {
+        currentOxygen = maxOxygen;
+        UpdateOxygenUI();
+    }
+
+    void Update()
+    {
+        // Test key to refill
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            AddOxygen(50f);
+        }
+
+        // Oxygen depletion over time (optional)
+        currentOxygen -= Time.deltaTime * 0.5f; // Decrease oxygen slowly
+        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen);
+        UpdateOxygenUI();
+    }
+ public void AddOxygen(float amount)
+    {
+        currentOxygen += amount;
+        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen);
+        UpdateOxygenUI();
+        Debug.Log("Oxygen added! Current oxygen: " + currentOxygen);
+    }
+
+    void UpdateOxygenUI()
+    {
+        if (oxygenBar != null)
+        {
+            oxygenBar.fillAmount = currentOxygen / maxOxygen;
+        }
+    }
+}
