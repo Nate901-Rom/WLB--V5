@@ -1,0 +1,31 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class OxygenSystem : MonoBehaviour
+{
+    public Image oxygenBar;
+    public float maxOxygen = 100f;
+    public float currentOxygen;
+    public float oxygenDecreaseRate = 25f;
+
+    void Start()
+    {
+        currentOxygen = maxOxygen;
+    }
+
+    void Update()
+    {
+        // Decrease oxygen over time
+        currentOxygen -= oxygenDecreaseRate * Time.deltaTime;
+        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen);
+
+        // Update UI
+        oxygenBar.fillAmount = currentOxygen / maxOxygen;
+    }
+
+    public void RefillOxygen(float amount)
+    {
+        currentOxygen += amount;
+        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen);
+    }
+}
