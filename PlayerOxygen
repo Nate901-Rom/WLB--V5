@@ -1,0 +1,15 @@
+using UnityEngine;
+
+public class PlayerOxygen : MonoBehaviour
+{
+    public OxygenManager oxygenManager;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("OxygenTank"))
+        {
+            oxygenManager.AddOxygen(20f); // Add 20 oxygen when tank is collected
+            Destroy(other.gameObject); // Remove the tank
+        }
+    }
+}
